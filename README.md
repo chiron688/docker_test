@@ -1,22 +1,6 @@
 # 使用 Flask 构建地理位置数据与机器学习模型结合的 Python 应用
 这个 Python 应用利用了 Flask、GDAL 和 pickle 库。它通过 Web 界面接收用户上传的地理位置数据文件和机器学习模型文件，然后使用 GDAL 库读取位置数据，并将其转换成模型可以识别的格式。随后，应用会使用 pickle 序列化库读取机器学习模型文件，并使用该模型进行预测，将预测结果保存为 GeoTiff 格式的文件。最后，应用将预测结果发送回用户，以供后续分析和使用。
-## 构建 Docker 镜像
-要构建 Docker 镜像，请确保已经安装 Docker，并在本地目录下创建一个名为 `Dockerfile` 的文件，并将以下代码复制到其中：
-```
-FROM debian
-WORKDIR /app
-COPY . /app
-RUN apt-get update && \
-    apt-get install -y wget python3 python3-pip
-RUN wget https://udomain.dl.sourceforge.net/project/gdal-wheels-for-linux/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl && python3 -m pip install GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
-RUN pip install --no-cache-dir -r requirements.txt
-CMD ["python", "app.py"]
-```
-接着，在终端中进入该目录并运行以下命令来构建 Docker 镜像：
-```
-docker build -t docker_test_water .
-```
-该命令将使用 `Dockerfile` 中定义的指令来构建一个名为 `docker_test_water` 的 Docker 镜像。
+
 ## 启动 Docker 容器
 要启动 Docker 容器，请使用以下命令：
 ```
