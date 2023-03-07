@@ -3,11 +3,12 @@
 ## 构建 Docker 镜像
 要构建 Docker 镜像，请确保已经安装 Docker，并在本地目录下创建一个名为 `Dockerfile` 的文件，并将以下代码复制到其中：
 ```
-FROM python:3.8-slim
+FROM debian
 WORKDIR /app
 COPY . /app
 RUN apt-get update && \
-    apt-get install -y gdal-bin python3-gdal
+    apt-get install -y wget python3 python3-pip
+RUN wget https://udomain.dl.sourceforge.net/project/gdal-wheels-for-linux/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl && python3 -m pip install GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
 RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "app.py"]
 ```
